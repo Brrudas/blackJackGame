@@ -79,9 +79,10 @@ standBtn.addEventListener('click', function (){
     stand = true
     if(hSum<17&&isAlive){
         do{
-        let hCard = getRandomCard()
-        hSum += hCard
-        hCards+=`<img src='${img[random-1]}'/> `
+            setTimeout(1000)
+            let hCard = getRandomCard()
+            hSum += hCard
+            hCards+=`<img src='${img[random-1]}'/> `
         }while (hSum<17&&isAlive)
         renderGame()
 
@@ -89,13 +90,16 @@ standBtn.addEventListener('click', function (){
             message +=' You Won $' + player.bet + ' !'
             player.chips+=player.bet*2
             player.bet=0
+            isAlive= false
         }else if(sum<hSum && hSum<22){
             message ='You Lose'
             player.bet=0
+            isAlive= false
         }else{
             message ='Draw!'
             player.chips+=player.bet
             player.bet=0
+            isAlive= false
         }
     messageEl.textContent = message
     playerEl.textContent = player.name + ": $" + player.chips
@@ -145,10 +149,12 @@ function renderGame(){
             message +=' You Won $' + player.bet + ' !'
             player.chips+=player.bet*2
             player.bet=0
+            isAlive= false
         }else{
             message +=' Draw!'
             player.chips+=player.bet
             player.bet=0
+            isAlive= false
         }        
         
         
@@ -202,6 +208,7 @@ function startGame(){
         renderGame()
     }else if(player.bet===0){
         messageEl.textContent = 'place your bet'
+        console.log('aqui')
     }
 }
 
