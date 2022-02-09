@@ -59,3 +59,18 @@ button {
   /* background-color: blueviolet; */
   float: none;
 }
+
+.a {
+  display: flex;
+  justify-content: center;
+}
+
+.a p {
+  background-color: goldenrod;
+  margin: 1em;
+  /* padding: 1px; */
+}
+
+.a p:hover {
+  cursor: pointer;
+}

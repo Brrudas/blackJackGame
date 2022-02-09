@@ -1,22 +1,23 @@
 let player = {
-    name: " Mau ",
+    name: ' Mau ',
     chips:  100,
     bet: 0
 }
+let card
 let cards = ''
 let sum = 0
 let blackJack = false
 let isAlive = false
-let message = ""
-let messageEl = document.getElementById("message-el")
-let sumEl = document.getElementById("sum-el")
-let cardEl = document.getElementById("cards-el")
-let playerEl = document.getElementById("player-el")
+let message = ''
+let messageEl = document.getElementById('message-el')
+let sumEl = document.getElementById('sum-el')
+let cardEl = document.getElementById('cards-el')
+let playerEl = document.getElementById('player-el')
 let random = 0
 //Casa
 let stand = false
-let hSumEl = document.getElementById("h-sum-el")
-let hCardEl = document.getElementById("h-cards-el")
+let hSumEl = document.getElementById('h-sum-el')
+let hCardEl = document.getElementById('h-cards-el')
 let hCards = ''
 let hSum = 0
 const standBtn = document.getElementById('stand-btn')
@@ -41,16 +42,22 @@ const add50 = document.getElementById('add-50')
 const add100 = document.getElementById('add-100')
 let betEl = document.getElementById('bet-el')
 
-playerEl.textContent = player.name + ": $" + player.chips
-// betEl.textContent = "Bet: "
+//
+let a1 = document.getElementById('a-1')
+let a11 = document.getElementById('a-11')
+
+
+playerEl.textContent = player.name + ': $' + player.chips
+
+
 
 add10.addEventListener('click', function(){
     if(player.chips>9){
         player.chips-=10
         player.bet +=10
 
-        playerEl.textContent = player.name + ": $" + player.chips
-        betEl.textContent = "Bet: " + player.bet
+        playerEl.textContent = player.name + ': $' + player.chips
+        betEl.textContent = 'Bet: ' + player.bet
     }
 })
 
@@ -59,8 +66,8 @@ add50.addEventListener('click', function(){
         player.chips-=50
         player.bet +=50
 
-        playerEl.textContent = player.name + ": $" + player.chips
-        betEl.textContent = "Bet: " + player.bet
+        playerEl.textContent = player.name + ': $' + player.chips
+        betEl.textContent = 'Bet: ' + player.bet
     }
 })
 
@@ -69,8 +76,8 @@ add100.addEventListener('click', function(){
         player.chips-=100
         player.bet +=100
 
-        playerEl.textContent = player.name + ": $" + player.chips
-        betEl.textContent = "Bet: " + player.bet
+        playerEl.textContent = player.name + ': $' + player.chips
+        betEl.textContent = 'Bet: ' + player.bet
     }
 })
 
@@ -79,7 +86,6 @@ standBtn.addEventListener('click', function (){
     stand = true
     if(hSum<17&&isAlive){
         do{
-            setTimeout(1000)
             let hCard = getRandomCard()
             hSum += hCard
             hCards+=`<img src='${img[random-1]}'/> `
@@ -102,8 +108,8 @@ standBtn.addEventListener('click', function (){
             isAlive= false
         }
     messageEl.textContent = message
-    playerEl.textContent = player.name + ": $" + player.chips
-    betEl.textContent = "Bet: "+player.bet
+    playerEl.textContent = player.name + ': $' + player.chips
+    betEl.textContent = 'Bet: '+player.bet
     }
 
     
@@ -119,24 +125,24 @@ function getRandomCard(){
     }else if(random>1){
         return random
     }else{
-        return 11
+        return 1
     }
 }
 
 function renderGame(){
-    sumEl.textContent = "Sum: " + sum
+    sumEl.textContent = 'Sum: ' + sum
 
     cardEl.innerHTML = cards
     // for(let i=0;i<cards.length; i++){
-    //     cardEl.textContent += cards[i] + " " 
+    //     cardEl.textContent += cards[i] + ' ' 
 
     // }
 
 
     if (sum <= 20){
-        message = "New card?"
+        message = 'New card?'
     } else if(sum ===21){
-        message = "Blackjack!"
+        message = 'Blackjack!'
         blackJack = true
         
         do{
@@ -159,31 +165,38 @@ function renderGame(){
         
         
     }else {
-        message = "Loser"
+        message = 'Loser'
         isAlive = false
         player.bet=0
     }
 messageEl.textContent = message
 hCardEl.innerHTML = hCards
-hSumEl.textContent = "Sum: " + hSum
-playerEl.textContent = player.name + ": $" + player.chips
-betEl.textContent = "Bet: "+player.bet
+hSumEl.textContent = 'Sum: ' + hSum
+playerEl.textContent = player.name + ': $' + player.chips
+betEl.textContent = 'Bet: '+player.bet
 }
 
 function newCard(){
 
     if(isAlive && blackJack===false  && stand===false){
-        let card = getRandomCard()
-
-        sum += card
-        cards+=`<img src='${img[random-1]}'/> `
+        card = getRandomCard()
+        if(card===1){
+            a1.textContent = 'A=1'
+            a11.textContent = 'A=11'
+            sum--
+        }
+        console.log(card)
+            sum += card
+            cards+=`<img src='${img[random-1]}'/> `
         
-        renderGame()
+            renderGame()
+        
     }
 
 }
 
 function startGame(){
+
     if(player.bet>0&& isAlive===false){
         isAlive = true
         stand = false
@@ -193,23 +206,57 @@ function startGame(){
         cards =`<img src='${img[random-1]}'/>`
         let secondCard = getRandomCard()
         cards+=`<img src='${img[random-1]}'/> `
-
+        console.log(firstCard,secondCard)
+        if(firstCard===1||secondCard===1){
+            a1.textContent = 'A=1'
+            a11.textContent = 'A=11'
+            sum--
+        }
+    
         sum = firstCard + secondCard
 
     //House cards
         let hFirstCard = getRandomCard()
         hCards =`<img src='${img[random-1]}'/>`
-        // let hSecondCard = getRandomCard()
-        // hCards+=`<img src='${img[random-1]}'/> `
 
         hSum = hFirstCard 
-        // + hSecondCard
 
         renderGame()
     }else if(player.bet===0){
         messageEl.textContent = 'place your bet'
-        console.log('aqui')
     }
 }
 
 
+a1.addEventListener('click',function(){
+    if(firstCard=1){
+        firstCard=1
+    }else if(secondCard=1){
+        secondCard=1
+    }else if(card=1){
+        card=1
+    }
+    sum++
+
+    console.log('A1')
+    a1.textContent = ''
+    a11.textContent = ''
+    renderGame()
+})
+
+a11.addEventListener('click',function(){
+    if(firstCard=1){
+        firstCard=11
+    }else if(secondCard=1){
+        secondCard=11
+    }else if(card=1){
+        card=11
+    }
+    sum+=11
+
+
+    console.log('A11')
+    a1.textContent = ''
+    a11.textContent = ''
+    renderGame()
+})
