@@ -185,7 +185,6 @@ function newCard(){
             a11.textContent = 'A=11'
             sum--
         }
-        console.log(card)
             sum += card
             cards+=`<img src='${img[random-1]}'/> `
         
@@ -201,20 +200,21 @@ function startGame(){
         isAlive = true
         stand = false
         blackJack = false
+        sum = 0
     //Player cards
         let firstCard = getRandomCard()
         cards =`<img src='${img[random-1]}'/>`
         let secondCard = getRandomCard()
         cards+=`<img src='${img[random-1]}'/> `
-        console.log(firstCard,secondCard)
         if(firstCard===1||secondCard===1){
             a1.textContent = 'A=1'
             a11.textContent = 'A=11'
             sum--
+            console.log(sum)
         }
     
-        sum = firstCard + secondCard
-
+        sum += firstCard + secondCard
+        console.log(sum)
     //House cards
         let hFirstCard = getRandomCard()
         hCards =`<img src='${img[random-1]}'/>`
@@ -237,8 +237,8 @@ a1.addEventListener('click',function(){
         card=1
     }
     sum++
+    console.log(sum)
 
-    console.log('A1')
     a1.textContent = ''
     a11.textContent = ''
     renderGame()
@@ -253,9 +253,9 @@ a11.addEventListener('click',function(){
         card=11
     }
     sum+=11
+    console.log(sum)
 
 
-    console.log('A11')
     a1.textContent = ''
     a11.textContent = ''
     renderGame()
