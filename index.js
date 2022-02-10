@@ -149,7 +149,11 @@ function renderGame(){
     } else if(sum ===21){
         message = 'Blackjack!'
         blackJack = true
-        
+        do{
+            let hCard = getRandomCard()
+            hSum += hCard
+            hCards+=`<img src='${img[random-1]}'/> `
+        }while (hSum<17)
         
         if(hSum<sum || hSum>21){
             message +=' You Won $' + player.bet + ' !'
