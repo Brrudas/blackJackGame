@@ -87,6 +87,11 @@ standBtn.addEventListener('click', function (){
     if(hSum<17&&isAlive){
         do{
             let hCard = getRandomCard()
+            if(hCard===1 && hSum<9 ){
+                hCard = 11
+            }else if(hCard===1 && hSum===10){
+                hCard = 11
+            }
             hSum += hCard
             hCards+=`<img src='${img[random-1]}'/> `
         }while (hSum<17&&isAlive)
@@ -145,12 +150,7 @@ function renderGame(){
         message = 'Blackjack!'
         blackJack = true
         
-        do{
-            let hCard = getRandomCard()
-            hSum += hCard
-            hCards+=`<img src='${img[random-1]}'/> `
-        }while (hSum<17)
-
+        
         if(hSum<sum || hSum>21){
             message +=' You Won $' + player.bet + ' !'
             player.chips+=player.bet*2
@@ -217,7 +217,11 @@ function startGame(){
         console.log(sum)
     //House cards
         let hFirstCard = getRandomCard()
+        if(hFirstCard===1){
+            hFirstCard=11
+        }
         hCards =`<img src='${img[random-1]}'/>`
+        
 
         hSum = hFirstCard 
 
