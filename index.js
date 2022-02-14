@@ -51,7 +51,7 @@ playerEl.textContent = player.name + ': $' + player.chips
 
 
 
-add10.addEventListener('click', function(){
+add10.addEventListener('click', ()=>{
     if(player.chips>9){
         player.chips-=10
         player.bet +=10
@@ -61,7 +61,7 @@ add10.addEventListener('click', function(){
     }
 })
 
-add50.addEventListener('click', function(){
+add50.addEventListener('click', ()=>{
     if(player.chips>49){
         player.chips-=50
         player.bet +=50
@@ -71,7 +71,7 @@ add50.addEventListener('click', function(){
     }
 })
 
-add100.addEventListener('click', function(){
+add100.addEventListener('click', ()=>{
     if(player.chips>99){
         player.chips-=100
         player.bet +=100
@@ -82,7 +82,7 @@ add100.addEventListener('click', function(){
 })
 
 
-standBtn.addEventListener('click', function (){
+standBtn.addEventListener('click', ()=>{
     stand = true
     if(hSum<17&&isAlive){
         do{
@@ -103,9 +103,13 @@ standBtn.addEventListener('click', function (){
             player.bet=0
             isAlive= false
         }else if(sum<hSum && hSum<22){
-            message ='You Lose'
+            message ='You Lose.'
             player.bet=0
             isAlive= false
+            console.log(player.chips)
+            if(player.chips===0){
+                message += ' You have no more money'
+                }
         }else{
             message ='Draw!'
             player.chips+=player.bet
@@ -122,7 +126,7 @@ standBtn.addEventListener('click', function (){
 })
 
 
-function getRandomCard(){
+const getRandomCard = ()=>{
     random = Math.ceil(Math.random()*13)
 
     if(random>10){
@@ -134,7 +138,7 @@ function getRandomCard(){
     }
 }
 
-function renderGame(){
+const renderGame = ()=>{
     sumEl.textContent = 'Sum: ' + sum
 
     cardEl.innerHTML = cards
@@ -169,9 +173,13 @@ function renderGame(){
         
         
     }else {
-        message = 'Loser'
+        message = 'Loser.'
         isAlive = false
         player.bet=0
+        console.log(player.chips)
+        if(player.chips===0){
+                message += ' You have no more money'
+        }
     }
 messageEl.textContent = message
 hCardEl.innerHTML = hCards
@@ -180,7 +188,7 @@ playerEl.textContent = player.name + ': $' + player.chips
 betEl.textContent = 'Bet: '+player.bet
 }
 
-function newCard(){
+const newCard = ()=>{
 
     if(isAlive && blackJack===false  && stand===false){
         card = getRandomCard()
@@ -198,7 +206,7 @@ function newCard(){
 
 }
 
-function startGame(){
+const startGame = ()=>{
 
     if(player.bet>0&& isAlive===false){
         isAlive = true
@@ -214,11 +222,9 @@ function startGame(){
             a1.textContent = 'A=1'
             a11.textContent = 'A=11'
             sum--
-            console.log(sum)
         }
     
         sum += firstCard + secondCard
-        console.log(sum)
     //House cards
         let hFirstCard = getRandomCard()
         if(hFirstCard===1){
@@ -236,7 +242,7 @@ function startGame(){
 }
 
 
-a1.addEventListener('click',function(){
+a1.addEventListener('click',()=>{
     if(firstCard=1){
         firstCard=1
     }else if(secondCard=1){
@@ -245,14 +251,13 @@ a1.addEventListener('click',function(){
         card=1
     }
     sum++
-    console.log(sum)
 
     a1.textContent = ''
     a11.textContent = ''
     renderGame()
 })
 
-a11.addEventListener('click',function(){
+a11.addEventListener('click',()=>{
     if(firstCard=1){
         firstCard=11
     }else if(secondCard=1){
@@ -261,10 +266,11 @@ a11.addEventListener('click',function(){
         card=11
     }
     sum+=11
-    console.log(sum)
 
 
     a1.textContent = ''
     a11.textContent = ''
     renderGame()
 })
+
+console.log(player.chips)
